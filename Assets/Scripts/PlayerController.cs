@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private  float speed = 5f;
     [SerializeField] private  float rotationSpeed = 10f;
     [SerializeField] private List<GameObject> stack;
+    [SerializeField] private List<Product.ProductType> stackProducts;
     [SerializeField] private int currentStackSize;
     [SerializeField] private int maxStackSize;
     [SerializeField] private  Transform stackSpawnPoint; // Точка создания продуктов
@@ -56,6 +57,7 @@ public class PlayerController : MonoBehaviour
             obj.transform.SetParent(stackSpawnPoint);
             obj.transform.DOLocalMove(pos, 0.5f).SetEase(easing);
             stack.Add(obj);
+            stackProducts.Add(obj.GetComponent<Product>().type);
             
             animator.SetBool("WithProduct", currentStackSize != 0);
         }
@@ -83,6 +85,11 @@ public class PlayerController : MonoBehaviour
 
             RecalculateStackPositions();
         }
+    }
+
+    public List<Product.ProductType> GetProductsStack()
+    {
+        return stackProducts;
     }
     
     private void RecalculateStackPositions()

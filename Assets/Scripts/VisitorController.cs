@@ -18,7 +18,6 @@ public class VisitorController : MonoBehaviour
     private void Start()
     {
         CreateQueue();
-        //StartCoroutine(ProcessQueue());
     }
 
     private void CreateQueue()
@@ -35,21 +34,6 @@ public class VisitorController : MonoBehaviour
         // Перемещаем первого посетителя к кассе
         MoveVisitorToCashRegister(queue[0]);
     }
-
-    /*private IEnumerator ProcessQueue()
-    {
-        while (true)
-        {
-            // Ожидаем, пока текущий посетитель не достигнет кассы
-            yield return new WaitUntil(() => Vector3.Distance(queue[currentVisitorIndex].position, cashRegister.position) < 0.1f);
-
-            // Вызываем метод для перемещения текущего посетителя к OutPoint и продвижения очереди
-            QueueNext();
-
-            // Ждем, пока очередь полностью обновится
-            yield return new WaitForSeconds(1f); // Можно изменить время в зависимости от вашего времени обслуживания
-        }
-    }*/
 
     public void QueueNext()
     {
@@ -75,6 +59,8 @@ public class VisitorController : MonoBehaviour
         // Перемещаем посетителя к кассе
         visitor.GetComponent<Visitor>().WithoutProduct();
         visitor.GetComponent<NavMeshAgent>().SetDestination(cashRegister.position);
+        
+        //TODO генерация желаемых продуктов
     }
 
     private void MoveVisitorToOutPoint(Transform visitor)
